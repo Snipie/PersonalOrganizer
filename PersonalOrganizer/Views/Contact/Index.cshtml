@@ -1,0 +1,13 @@
+using PersonalOrganizer.Models;
+using System.Collections.Generic;
+@model List<Contact>
+
+@foreach(Contact c in model)
+{
+	@(c.Name)
+	@(c.Email)
+	@(c.Phone)
+	@(c.HasWhatsAppAccount)
+	@(c.HasTelegramAccount)
+	@(c.Notes)
+}
