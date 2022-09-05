@@ -6,240 +6,451 @@
 	},
 	"item": [
 		{
-			"name": "GetAll",
-			"event": [
+			"name": "TodoItem",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Body is an array\", function () {\r",
-							"    pm.expect(pm.response.json()).to.be.an('array');\r",
-							"});\r",
-							"pm.test(\"Objects are valid\", function () {\r",
-							"    var json_response = pm.response.json();\r",
-							"\r",
-							"    let valid = false;\r",
-							"    if(json_response.Length > 0) {\r",
-							"        for(let i = 0; i < json_response.Length; i++) {\r",
-							"            valid = valid | expect(json_response[i]).to.have.members();\r",
-							"        }\r",
-							"    }\r",
-							"    pm.expect(valid)\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "GetAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is an array\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('array');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "https://{{host}}:{{port}}/API/Contact",
-					"protocol": "https",
-					"host": [
-						"{{host}}"
 					],
-					"port": "{{port}}",
-					"path": [
-						"API",
-						"Contact"
-					]
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{host}}:{{port}}/API/TodoItem",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"API",
+								"TodoItem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOne",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is an object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{host}}:{{port}}/API/TodoItem/1",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"API",
+								"TodoItem",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.body == undefined);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Build an apartment\",\r\n    \"description\": \"Construct a real state\",\r\n    \"isDone\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/API/TodoItem",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"API",
+								"TodoItem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.body == undefined);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Build a real state\",\r\n    \"description\": \"Build an apartment\",\r\n    \"isDone\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/API/TodoItem/2",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"API",
+								"TodoItem",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.body == undefined);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{host}}:{{port}}/API/TodoItem/2",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"API",
+								"TodoItem",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "GetOne",
-			"event": [
+			"name": "Contact",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Body is an object\", function () {\r",
-							"    pm.expect(pm.response.json()).to.be.an('object');\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "GetAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is an array\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('array');\r",
+									"});\r",
+									"pm.test(\"Objects are valid\", function () {\r",
+									"    var json_response = pm.response.json();\r",
+									"\r",
+									"    let valid = false;\r",
+									"    if(json_response.Length > 0) {\r",
+									"        for(let i = 0; i < json_response.Length; i++) {\r",
+									"            valid = valid | expect(json_response[i]).to.have.members();\r",
+									"        }\r",
+									"    }\r",
+									"    pm.expect(valid)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "https://{{host}}:{{port}}/API/Contact/10",
-					"protocol": "https",
-					"host": [
-						"{{host}}"
 					],
-					"port": "{{port}}",
-					"path": [
-						"API",
-						"Contact",
-						"10"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Body is empty\", function () {\r",
-							"    pm.expect(pm.response.body == undefined);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"Name\": \"Goat\",\r\n    \"Phone\": \"+200000000\",\r\n    \"Email\": \"Goat@Desert.Sand\",\r\n    \"HasWhatsAppAccount\": true,\r\n    \"HasTelegramAccount\": true,\r\n    \"Notes\": \"The GOAT\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/API/Contact",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"API",
+								"Contact"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "https://{{host}}:{{port}}/API/Contact",
-					"protocol": "https",
-					"host": [
-						"{{host}}"
-					],
-					"port": "{{port}}",
-					"path": [
-						"API",
-						"Contact"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Edit",
-			"event": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Body is empty\", function () {\r",
-							"    pm.expect(pm.response.body == undefined);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"Name\": \"Goat2\",\r\n    \"Phone\": \"+200000000\",\r\n    \"Email\": \"Goat@Desert.Sand\",\r\n    \"HasWhatsAppAccount\": true,\r\n    \"HasTelegramAccount\": true,\r\n    \"Notes\": \"The GOAT\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "GetOne",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is an object\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('object');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/API/Contact/10",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"API",
+								"Contact",
+								"10"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "https://{{host}}:{{port}}/API/Contact/9",
-					"protocol": "https",
-					"host": [
-						"{{host}}"
-					],
-					"port": "{{port}}",
-					"path": [
-						"API",
-						"Contact",
-						"9"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete",
-			"event": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Body is empty\", function () {\r",
-							"    pm.expect(pm.response.body == undefined);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "https://{{host}}:{{port}}/API/Contact/12",
-					"protocol": "https",
-					"host": [
-						"{{host}}"
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.body == undefined);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"port": "{{port}}",
-					"path": [
-						"API",
-						"Contact",
-						"12"
-					]
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Goat\",\r\n    \"Phone\": \"+200000000\",\r\n    \"Email\": \"Goat@Desert.Sand\",\r\n    \"HasWhatsAppAccount\": true,\r\n    \"HasTelegramAccount\": true,\r\n    \"Notes\": \"The GOAT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/API/Contact",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"API",
+								"Contact"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.body == undefined);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Goat2\",\r\n    \"Phone\": \"+200000000\",\r\n    \"Email\": \"Goat@Desert.Sand\",\r\n    \"HasWhatsAppAccount\": true,\r\n    \"HasTelegramAccount\": true,\r\n    \"Notes\": \"The GOAT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/API/Contact/9",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"API",
+								"Contact",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body is empty\", function () {\r",
+									"    pm.expect(pm.response.body == undefined);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{host}}:{{port}}/API/Contact/12",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"API",
+								"Contact",
+								"12"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	],
 	"event": [
