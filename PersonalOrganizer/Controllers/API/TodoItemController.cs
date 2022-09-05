@@ -5,6 +5,8 @@ using DAL;
 
 namespace PersonalOrganizer.Controllers.API;
 
+[Route("api/[controller]")]
+[ApiController]
 public class TodoItemController : Controller
 {
 	private readonly ILogger<TodoItemController> _logger;
@@ -14,43 +16,50 @@ public class TodoItemController : Controller
 		_logger = logger;
 	}
 
-	public ActionResult Index()
+	[HttpGet]
+	public ActionResult<IEnumerable<string>> Get()
 	{
 		PersonalOrganizerContext db = new PersonalOrganizerContext();
 		List<TodoItem> todoItems = db.TodoItems.ToList();
 
-		return View(todoItems);
+		db.Dispose();
+
+		return Json(todoItems);
 	}
 
-	[HttpGet]
-	public IActionResult Create()
+	[HttpGet("{id}")]
+	public ActionResult<string> Get(int id)
 	{
-		return View();
+		PersonalOrganizerContext db = new PersonalOrganizerContext();
+		TodoItem item = db.TodoItems.Find(id);
+
+		if(item == null)
+			return NotFound();
+
+		db.Dispose();
+
+		return Json(item);
 	}
 
 	[HttpPost]
-	public IActionResult Create(TodoItem model)
+	public ActionResult Create([FromBody] TodoItem model)
 	{
 		PersonalOrganizerContext db = new PersonalOrganizerContext();
 		db.TodoItems.Add(model);
 		db.SaveChanges();
 
-		return View();
+		db.Dispose();
+
+		return Ok();
 	}
 
-	[HttpGet]
-	public IActionResult Edit(int id)
+	[HttpPut("{id}")]
+	public ActionResult Edit(int id, [FromBody] TodoItem model)
 	{
 		PersonalOrganizerContext db = new PersonalOrganizerContext();
 		TodoItem todoItem = db.TodoItems.Find(id);
-		return View(todoItem);
-	}
-
-	[HttpPost]
-	public IActionResult Edit(TodoItem model)
-	{
-		PersonalOrganizerContext db = new PersonalOrganizerContext();
-		TodoItem todoItem = db.TodoItems.Find(model.TodoItemId);
+		if(todoItem == null)
+			return NotFound();
 
 		todoItem.Title = model.Title;
 		todoItem.Description = model.Description;
@@ -59,17 +68,25 @@ public class TodoItemController : Controller
 		db.TodoItems.Update(todoItem);
 		db.SaveChanges();
 
-		return View();
-	}
-
-	[HttpPost]
-	public IActionResult Delete(int id)
-	{
-		PersonalOrganizerContext db = new PersonalOrganizerContext();
-		db.TodoItems.Remove(db.TodoItems.Find(id));
-		db.SaveChanges();
 		db.Dispose();
 
-		return View("Index");
+		return Ok();
+	}
+
+	[HttpDelete("{id}")]
+	public ActionResult Delete(int id)
+	{
+		PersonalOrganizerContext db = new PersonalOrganizerContext();
+		TodoItem todoItem = db.TodoItems.Find(id);
+
+		if(todoItem == null)
+			return NotFound();
+
+		db.TodoItems.Remove(todoItem);
+		db.SaveChanges();
+
+		db.Dispose();
+
+		return Ok();
 	}
 }
