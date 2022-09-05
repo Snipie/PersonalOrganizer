@@ -14,5 +14,15 @@ namespace Models
 		{
 			return $"ID: {this.TodoItemId}\n Title: {this.Title}\n Description: {this.Description}\n IsDone: {this.IsDone}";
 		}
+
+		public static TodoItem FromViewMode(TodoItemViewModel model)
+		{
+			return new TodoItem {
+				TodoItemId = model.TodoItemId,
+				Title = model.Title,
+				Description = model.Description,
+				IsDone = model.IsDone
+			};
+		}
 	}
 }

@@ -17,5 +17,18 @@ namespace Models
 		{
 			return $"ID: {this.ContactId}\n Name: {this.Name}\n Phone: {this.Phone}\n Email: {this.Email}\n HasWhatsAppAccount?: {this.HasWhatsAppAccount}\n HasTelegramAccount?: {this.HasTelegramAccount}\n Notes: {this.Notes}\n";
 		}
+
+		public static Contact FromViewModel(ContactViewModel model)
+		{
+			return new Contact() {
+				ContactId = model.ContactId,
+				Name = model.Name,
+				Phone = model.Phone,
+				Email = model.Email,
+				HasWhatsAppAccount = model.HasWhatsAppAccount,
+				HasTelegramAccount = model.HasTelegramAccount,
+				Notes = model.Notes
+			};
+		}
 	}
 }
