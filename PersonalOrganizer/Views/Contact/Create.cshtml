@@ -1,26 +1,31 @@
+@model Models.Contact
+
 <form asp-controller="Contact" asp-action="Create">
 	<div>
-		<label for="Name"></label>
-		<input type="text" name="Name" />
+		<label for="Name">Name</label>
+		<input type="text" asp-for="Name" />
 	</div>
 	<div>
-		<label for="Phone"></label>
-		<input type="text" name="Phone" />
+		<label for="Phone">Phone</label>
+		<input type="text" asp-for="Phone" />
 	</div>
 	<div>
-		<label for="Email"></label>
-		<input type="text" name="Email" />
+		<label for="Email">Email</label>
+		<input type="text" asp-for="Email" />
 	</div>
 	<div>
-		<label for="HasWhatsAppAccount"></label>
-		<input type="checkbox" name="HasWhatsAppAccount" />
+		<label for="HasWhatsAppAccount">WhatsApp account?</label>
+		<input type="checkbox" asp-for="HasWhatsAppAccount" />
 	</div>
 	<div>
-		<label for="HasTelegramAccount"></label>
-		<input type="checkbox" name="HasTelegramAccount" />
+		<label for="HasTelegramAccount">Telegram account?</label>
+		<input type="checkbox" asp-for="HasTelegramAccount" />
 	</div>
 	<div>
-		<label for="Notes"></label>
-		<input type="text" name="Notes" />
+		<label for="Notes">Notes</label>
+		<input type="text" asp-for="Notes" />
+	</div>
+	<div>
+		<input type="submit" value="Create" />
 	</div>
 </form>

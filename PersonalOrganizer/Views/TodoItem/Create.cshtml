@@ -1,0 +1,19 @@
+@model Models.TodoItem
+
+<form asp-controller="TodoItem" asp-action="Create">
+	<div>
+		<label for="Title">Title</label>
+		<input type="text" asp-for="Title" />
+	</div>
+	<div>
+		<label for="Description">Description</label>
+		<input type="text" asp-for="Description" />
+	</div>
+	<div>
+		<label for="IsDone">Done?</label>
+		<input type="checkbox" asp-for="IsDone" />
+	</div>
+	<div>
+		<input type="submit" value="Create" />
+	</div>
+</form>

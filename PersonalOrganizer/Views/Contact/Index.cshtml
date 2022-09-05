@@ -1,13 +1,35 @@
-using PersonalOrganizer.Models;
-using System.Collections.Generic;
+@using Models;
+@using System.Collections.Generic;
 @model List<Contact>
 
-@foreach(Contact c in model)
+<a asp-controller="Contact" asp-action="Create">Create</a>
+
+@foreach(Contact c in Model)
 {
-	@(c.Name)
-	@(c.Email)
-	@(c.Phone)
-	@(c.HasWhatsAppAccount)
-	@(c.HasTelegramAccount)
-	@(c.Notes)
+	<div>
+		Name: @(c.Name)
+	</div>
+	<div>
+		Email: @(c.Email)
+	</div>
+	<div>
+		Phone: @(c.Phone)
+	</div>
+	<div>
+		WhatsApp account: @(c.HasWhatsAppAccount)
+	</div>
+	<div>
+		Telegram account: @(c.HasTelegramAccount)
+	</div>
+	<div>
+		Notes: @(c.Notes)
+	</div>
+	<div>
+		<form asp-controller="Contact" asp-action="Delete" method="POST">
+			<input type="submit" value="Delete" />
+			<input type="hidden" name="id" value="@c.ContactId" />
+		</form>
+		<a asp-controller="Contact" asp-action="Edit" asp-all-route-id="@c.ContactId">Edit</a>
+	</div>
+	<hr />
 }
