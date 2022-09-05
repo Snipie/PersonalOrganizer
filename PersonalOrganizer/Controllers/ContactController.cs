@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using PersonalOrganizer.Models;
-using PersonalOrganizer.DAL;
+using Models;
+using DAL;
 
 namespace PersonalOrganizer.Controllers;
 
@@ -16,7 +16,7 @@ public class ContactController : Controller
 
 	public IActionResult Index()
 	{
-		DbContext db = new PersonalOrganizerContext();
+		PersonalOrganizerContext db = new PersonalOrganizerContext();
 		List<Contact> contacts = db.Contacts.ToList();
 
 		return View(contacts);
@@ -31,7 +31,7 @@ public class ContactController : Controller
 	[HttpPost]
 	public IActionResult Create(ContactViewModel model)
 	{
-		DbContext db = new PersonalOrganizerContext();
+		PersonalOrganizerContext db = new PersonalOrganizerContext();
 		db.Contacts.Add(Contact.FromViewModel(model));
 		db.SaveChanges();
 
@@ -47,6 +47,7 @@ public class ContactController : Controller
 	[HttpPost]
 	public IActionResult Edit(ContactViewModel model)
 	{
+		PersonalOrganizerContext db = new PersonalOrganizerContext();
 		Contact c = db.Contacts.Find(model.ContactId);
 		// Modify properties
 		// c = Contact.FromViewModel(model);
@@ -69,6 +70,8 @@ public class ContactController : Controller
 		db.Contacts.Remove(db.Contacts.Find(id));
 		db.SaveChanges();
 		
-		return View();
+		List<Contact> contacts = db.Contacts.ToList();
+
+		return View("Index", contacts);
 	}
 }
